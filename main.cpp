@@ -2,7 +2,7 @@
 #include <iostream>
 #include <windows.h>
 
-int main() {
+void RenderNewSimulator(int Mass) {
     sf::RectangleShape wall(sf::Vector2f(100,500));
     wall.setOutlineColor(sf::Color(150,150,150));
     wall.setOutlineThickness(1);
@@ -31,7 +31,7 @@ int main() {
     S1.setOutlineColor(sf::Color(0,255,0));
     sf::FloatRect S1Rect(249,224,52,52);
     float S1V = -.1;
-    float S1M = 1000000;
+    float S1M = Mass;
 
     sf::RectangleShape S2(sf::Vector2f(50,50));
     S2.setPosition(150.05, 225);
@@ -49,7 +49,7 @@ int main() {
     S2Rect.left = 149.05;
     S2Rect.top = 224;
     int movedirection = 0;
-    sf::RenderWindow window(sf::VideoMode(750, 500), "SFML works!", sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(750, 500), "Perfect Collision World", sf::Style::Close);
     window.setFramerateLimit(300);
     boolean opened = false;
     while (window.isOpen()) {
@@ -149,6 +149,32 @@ int main() {
             opened = true;
         }
     }
+}
+
+bool isNumber(std::string str) {
+    for (char c : str) {
+        if (std::isdigit(c) == 0) return false;
+    }
+    return true;
+}
+
+int main() {
+    
+    std::string Numb = "";
+    do {
+        std::cout << "Input a number (always will be in KG)" << std::endl <<
+                     "The number you input will be the mass" << std::endl <<
+                     "of M1, M2 is already set to 1." << std::endl << std::endl <<
+                     "INPUT 'Cancel' (case-sensitive) to end" << std::endl;
+        std::cin >> Numb;
+        if (Numb != "Cancel") {
+            if (isNumber(Numb)) RenderNewSimulator(std::stof(Numb));
+            else {
+                std::cout << "Not a valid number!" << std::endl;
+                Sleep(3000);
+            }
+        }
+    } while (Numb != "Cancel");
 
     return 0;
 }

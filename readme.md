@@ -16,3 +16,8 @@
 
 ### 4/06/2021
 - Added ability to move camera with A/D/left-arrow/right-arrow
+
+### 6/06/2021
+- Added ability for user to input numbers
+- Added a number checker
+- Made the visualizer a function instead of an actual thing
