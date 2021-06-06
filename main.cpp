@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <sstream>
 #include <windows.h>
 
-void RenderNewSimulator(int Mass) {
+void RenderNewSimulator(float Mass) {
     sf::RectangleShape wall(sf::Vector2f(100,500));
     wall.setOutlineColor(sf::Color(150,150,150));
     wall.setOutlineThickness(1);
@@ -151,24 +152,26 @@ void RenderNewSimulator(int Mass) {
     }
 }
 
-bool isNumber(std::string str) {
-    for (char c : str) {
-        if (std::isdigit(c) == 0) return false;
+bool isFloat(std::string myString ) {
+    if (myString[0] != '-') {
+        std::istringstream iss(myString);
+        float f;
+        iss >> std::noskipws >> f;
+        return iss.eof() && !iss.fail();
     }
-    return true;
 }
 
 int main() {
-    
     std::string Numb = "";
     do {
         std::cout << "Input a number (always will be in KG)" << std::endl <<
+                     "NOTE: Decimal numbers works aswell." << std::endl <<
                      "The number you input will be the mass" << std::endl <<
                      "of M1, M2 is already set to 1." << std::endl << std::endl <<
                      "INPUT 'Cancel' (case-sensitive) to end" << std::endl;
         std::cin >> Numb;
         if (Numb != "Cancel") {
-            if (isNumber(Numb)) RenderNewSimulator(std::stof(Numb));
+            if (isFloat(Numb)) RenderNewSimulator(std::stof(Numb));
             else {
                 std::cout << "Not a valid number!" << std::endl;
                 Sleep(3000);

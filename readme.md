@@ -21,3 +21,5 @@
 - Added ability for user to input numbers
 - Added a number checker
 - Made the visualizer a function instead of an actual thing
+- Fixed bug where floating points don't work
+- Fixed bug where negative masses were allowed
