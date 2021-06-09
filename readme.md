@@ -26,3 +26,4 @@
 
 ### 9/06/2021
 - Changed position of the masses
+- Added velocity, mass and object indicator

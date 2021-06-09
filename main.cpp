@@ -33,6 +33,9 @@ void RenderNewSimulator(float Mass) {
     sf::FloatRect S1Rect(499,224,52,52);
     float S1V = -.1;
     float S1M = Mass;
+    sf::Text S1VT(std::to_string(S1V), font, 20);
+    S1VT.setColor(sf::Color(255,255,255));
+    S1VT.setPosition(S1.getPosition().x,S1.getPosition().y-20);
 
     sf::RectangleShape S2(sf::Vector2f(50,50));
     S2.setPosition(300, 225);
@@ -42,6 +45,9 @@ void RenderNewSimulator(float Mass) {
     sf::FloatRect S2Rect(299,224,52,52);
     float S2V = 0.0;
     float S2M = 1;
+    sf::Text S2VT(std::to_string(S2V), font, 20);
+    S2VT.setColor(sf::Color(255,255,255));
+    S2VT.setPosition(S2.getPosition().x,S2.getPosition().y-20);
     
     int movedirection = 0;
     sf::RenderWindow window(sf::VideoMode(750, 500), "Perfect Collision World", sf::Style::Close);
@@ -114,6 +120,10 @@ void RenderNewSimulator(float Mass) {
         S1Rect.top = S1.getPosition().y-1;
         S2Rect.left = S2.getPosition().x-1;
         S2Rect.top = S2.getPosition().y-1;
+        S1VT.setPosition(S1.getPosition().x,S1.getPosition().y-85);
+        S2VT.setPosition(S2.getPosition().x,S2.getPosition().y+S2.getSize().y+10);
+        S1VT.setString("S1:\nMass: " + std::to_string(S1M)  + "\nVelocity: " + std::to_string(S1V*10));
+        S2VT.setString("S2:\nMass: " + std::to_string(S2M)  + "\nVelocity: " + std::to_string(S2V*10));
 
         if (S1Rect.intersects(S2Rect)) {
             float S1VF = (((S1M - S2M)/(S1M+S2M))*S1V)+(((2*S2M)/(S1M+S2M))*S2V);
@@ -140,6 +150,8 @@ void RenderNewSimulator(float Mass) {
         window.draw(collisionCounter);
         window.draw(S1);
         window.draw(S2);
+        window.draw(S1VT);
+        window.draw(S2VT);
         window.display();
         if (!opened) {
             Sleep(500);
