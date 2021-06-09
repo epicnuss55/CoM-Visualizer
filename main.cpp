@@ -26,29 +26,23 @@ void RenderNewSimulator(float Mass) {
     NoMoreCollisions.setPosition(110, 40);
 
     sf::RectangleShape S1(sf::Vector2f(50,50));
-    S1.setPosition(300, 225);
+    S1.setPosition(500, 225);
     S1.setFillColor(sf::Color(0,0,0,1));
     S1.setOutlineThickness(2);
     S1.setOutlineColor(sf::Color(0,255,0));
-    sf::FloatRect S1Rect(249,224,52,52);
+    sf::FloatRect S1Rect(499,224,52,52);
     float S1V = -.1;
     float S1M = Mass;
 
     sf::RectangleShape S2(sf::Vector2f(50,50));
-    S2.setPosition(150.05, 225);
+    S2.setPosition(300, 225);
     S2.setFillColor(sf::Color(0,0,0,1));
     S2.setOutlineThickness(2);
     S2.setOutlineColor(sf::Color(0,255,0));
-    sf::FloatRect S2Rect(349,224,52,52);
+    sf::FloatRect S2Rect(299,224,52,52);
     float S2V = 0.0;
     float S2M = 1;
-
-    S1.setPosition(300, 225);
-    S2.setPosition(150.05, 225);
-    S1Rect.left = 299;
-    S1Rect.top = 224;
-    S2Rect.left = 149.05;
-    S2Rect.top = 224;
+    
     int movedirection = 0;
     sf::RenderWindow window(sf::VideoMode(750, 500), "Perfect Collision World", sf::Style::Close);
     window.setFramerateLimit(300);
@@ -107,14 +101,14 @@ void RenderNewSimulator(float Mass) {
                 float S2VF = (((2*S1M)/(S1M+S2M))*S1V)+(((S2M-S1M)/(S1M+S2M))*S2V);
                 S1V = S1VF;
                 S2V = S2VF;
+                std::cout << "New value S1M = " << S1V*10 << " New value S2M = " << S2V*10 << std::endl;
                 collisions = collisions+1;
             } else {
                 S2V = -S2V;
                 collisions = collisions+1;
+                std::cout << "New value S1M = " << S1V*10 << " New value S2M = " << S2V*10 << std::endl;
             }
         }
-
-        
 
         S1Rect.left = S1.getPosition().x-1;
         S1Rect.top = S1.getPosition().y-1;
@@ -127,12 +121,14 @@ void RenderNewSimulator(float Mass) {
             S1V = S1VF;
             S2V = S2VF;
             collisions = collisions+1;
+            std::cout << "New value S1M = " << S1V*10 << " New value S2M = " << S2V*10 << std::endl;
         }
 
         if (WallRect.intersects(S2Rect)) {
             if (S2V < 0) {
                 S2V = -S2V;
                 collisions = collisions+1;
+                std::cout << "New value S1M = " << S1V*10 << " New value S2M = " << S2V*10 << std::endl;
             }
         }
 
@@ -168,7 +164,7 @@ int main() {
                      "NOTE: Decimal numbers works aswell." << std::endl <<
                      "The number you input will be the mass" << std::endl <<
                      "of M1, M2 is already set to 1." << std::endl << std::endl <<
-                     "INPUT 'Cancel' (case-sensitive) to end" << std::endl;
+                     "INPUT 'Cancel' (case-sensitive) or close the window to end" << std::endl;
         std::cin >> Numb;
         if (Numb != "Cancel") {
             if (isFloat(Numb)) RenderNewSimulator(std::stof(Numb));

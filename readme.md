@@ -23,3 +23,6 @@
 - Made the visualizer a function instead of an actual thing
 - Fixed bug where floating points don't work
 - Fixed bug where negative masses were allowed
+
+### 9/06/2021
+- Changed position of the masses
